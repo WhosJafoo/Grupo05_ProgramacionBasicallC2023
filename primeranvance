@@ -1,0 +1,133 @@
+"""por alguna razon el sistema no lo reconoce yo lo hice en visual studio entonces si hacen algun update o algo lo 
+hacen por afuera y ya despues se arregla para poder usarlo aca tambien y en el paso 2 de dreamworld hay un error que
+lo manda aun ponga el pin bien pero mas tarde lo arreglo"""
+# import para autentificacion y para uso de la biblioteca random en los juegos
+import getpass
+import random
+import os
+
+
+def mostrar_menu():
+    print("Bienvenido a DreamWorld Casino")
+    print("Seleccione una opción:")
+    print("1. Registro de usuario nuevo")
+    print("2. DreamWorld Casino")
+    print("3. Configuración Avanzada")
+    print("4. Salir")
+
+
+def register_usuario():
+    print("NUEVO USUARIO!!")
+    attempts = 0
+    while attempts < 3:
+        id_usuario = getpass.getpass("Ingrese un nombre de usuario o ID: ")
+        if len(id_usuario) < 5:
+            print("El ID debe tener al menos cinco caracteres")
+        elif id_usuario in usuarios_registrados:
+
+            print("El ID ingresado ya está registrado")
+        else:
+            nombre = input("ingrese su nombre:\n")
+            pin = getpass.getpass("Ingrese su PIN (minimo de 6 digitos: )")
+            if len(pin) < 6:
+                print("PIN invalido, minimo seis dígitos.")
+            else:
+                pin_confirmation = getpass.getpass(
+                    "Ingrese de nuevo su PIN:\n ")
+                if pin != pin_confirmation:
+                    print("Los PINS no coinciden!")
+        print("Registro exitoso")
+        return
+        intentos += 1
+    print("Se excedió el máximo de intentos para ingresar un ID válido, volviendo al menú principal")
+
+
+def depositar_dinero():
+    print("Depositar dinero")
+    id_usuario = input("Ingrese su ID: ")
+    pin = getpass.getpass("Ingrese su PIN: ")
+    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
+        moneda = input("Ingrese la moneda (colones, dólares o bitcoin): ")
+        if moneda == 'colones':
+            tipo_cambio = 0.0016  # Conversión de colones a dólares
+        elif moneda == 'bitcoin':
+            tipo_cambio = 26755  # Conversión de bitcoin a dólares
+        else:
+            tipo_cambio = 1
+        try:
+            monto = float(input("Ingrese el monto a depositar: "))
+            monto_dolares = monto * tipo_cambio
+            usuarios_registrados[id_usuario]['saldo'] += monto_dolares
+            print("Depósito exitoso")
+            print("Saldo actual: $", usuarios_registrados[id_usuario]['saldo'])
+        except ValueError:
+            print("Monto inválido")
+    else:
+        print("ID o PIN incorrecto")
+
+
+def dreamworld_casino():
+    print("DreamWorld Casino")
+
+    print("Depositar dinero")
+    id_usuario = input("Ingrese su ID: ")
+    pin = getpass.getpass("Ingrese su PIN: ")
+    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
+        moneda = input("Ingrese la moneda (colones, dólares o bitcoin): ")
+        if moneda == 'colones':
+            tipo_cambio = 0.0016  # Conversión de colones a dólares
+        elif moneda == 'bitcoin':
+            tipo_cambio = 26755  # Conversión de bitcoin a dólares
+        else:
+            tipo_cambio = 1
+        try:
+            monto = float(input("Ingrese el monto a depositar: "))
+            monto_dolares = monto * tipo_cambio
+            usuarios_registrados[id_usuario]['saldo'] += monto_dolares
+            print("Depósito exitoso")
+            print("Saldo actual: $", usuarios_registrados[id_usuario]['saldo'])
+        except ValueError:
+            print("Monto inválido")
+    else:
+        print("ID o PIN incorrecto")
+
+# Función para retirar dinero
+
+
+def retirar_dinero():
+    print("Retirar dinero")
+    id_usuario = input("Ingrese su ID: ")
+    pin = getpass.getpass("Ingrese su PIN: ")
+    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
+        saldo_actual = usuarios_registrados[id_usuario]['saldo']
+        print("Saldo actual: $", saldo_actual)
+        intentos = 0
+
+
+def configuracion_avanzada():
+    print("Configuración Avanzada")
+
+
+def usuarios_registrados():
+    print("Usuarios registrados")
+
+
+# Lista para almacenar los usuarios registrados
+usuarios_registrados = []
+
+# Ciclo principal del programa
+while True:
+    mostrar_menu()
+    option = input("Ingrese su opción: ")
+
+    if option == "1":
+        register_usuario()
+    elif option == "2":
+        dreamworld_casino()
+    elif option == "3":
+        configuracion_avanzada()
+    elif option == "4":
+        print("¡Hasta luego!")
+        break
+    else:
+        print("Opción inválida. Por favor, ingrese un número del 1 al 4.")
