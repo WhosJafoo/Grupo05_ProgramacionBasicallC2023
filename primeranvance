@@ -2,6 +2,8 @@
 hacen por afuera y ya despues se arregla para poder usarlo aca tambien y en el paso 2 de dreamworld hay un error que
 lo manda aun ponga el pin bien pero mas tarde lo arreglo"""
 # import para autentificacion y para uso de la biblioteca random en los juegos
+
+
 import getpass
 import random
 import os
@@ -36,72 +38,59 @@ def register_usuario():
                     "Ingrese de nuevo su PIN:\n ")
                 if pin != pin_confirmation:
                     print("Los PINS no coinciden!")
+                else:
+                    deposito_minimo = input("Presiona una tecla para depositar:\n ")
+            deposito_minimo = 1000  # Monto mínimo de depósito en dólares
+
+            intentos_deposito = 3
+            while intentos_deposito > 0:
+                moneda = input("Ingrese la moneda de su depósito (dólares, colones o bitcoin): ")
+                monto_deposito = float(input("Ingrese el monto a depositar: "))
+                
+                if moneda == "dólares":
+                    if monto_deposito >= deposito_minimo:
+                        usuarios_registrados.append(id_usuario)
+                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                        intentos_deposito = 0
+                    else:
+                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
+                        intentos_deposito -= 1
+                        if intentos_deposito > 0:
+                            print(f"Intentos restantes: {intentos_deposito}")
+                elif moneda == "colones":
+                    tipo_cambio = 0.001  # Tipo de cambio dólar-colón
+                    monto_deposito_dolares = monto_deposito * tipo_cambio
+                    if monto_deposito_dolares >= deposito_minimo:
+                        usuarios_registrados.append(id_usuario)
+                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                        intentos_deposito = 0
+                    else:
+                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
+                        intentos_deposito -= 1
+                        if intentos_deposito > 0:
+                            print(f"Intentos restantes: {intentos_deposito}")
+                elif moneda == "bitcoin":
+                    tipo_cambio = 35000  # Tipo de cambio dólar-bitcoin
+                    monto_deposito_dolares = monto_deposito * tipo_cambio
+                    if monto_deposito_dolares >= deposito_minimo:
+                        usuarios_registrados.append(id_usuario)
+                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                        intentos_deposito = 0
+                    else:
+                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
+                        intentos_deposito -= 1
+                        if intentos_deposito > 0:
+                            print(f"Intentos restantes: {intentos_deposito}")
+                else:
+                    print("Moneda no válida. Intente nuevamente.")
         print("Registro exitoso")
         return
         intentos += 1
     print("Se excedió el máximo de intentos para ingresar un ID válido, volviendo al menú principal")
 
 
-def depositar_dinero():
-    print("Depositar dinero")
-    id_usuario = input("Ingrese su ID: ")
-    pin = getpass.getpass("Ingrese su PIN: ")
-    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
-        moneda = input("Ingrese la moneda (colones, dólares o bitcoin): ")
-        if moneda == 'colones':
-            tipo_cambio = 0.0016  # Conversión de colones a dólares
-        elif moneda == 'bitcoin':
-            tipo_cambio = 26755  # Conversión de bitcoin a dólares
-        else:
-            tipo_cambio = 1
-        try:
-            monto = float(input("Ingrese el monto a depositar: "))
-            monto_dolares = monto * tipo_cambio
-            usuarios_registrados[id_usuario]['saldo'] += monto_dolares
-            print("Depósito exitoso")
-            print("Saldo actual: $", usuarios_registrados[id_usuario]['saldo'])
-        except ValueError:
-            print("Monto inválido")
-    else:
-        print("ID o PIN incorrecto")
-
-
 def dreamworld_casino():
     print("DreamWorld Casino")
-
-    print("Depositar dinero")
-    id_usuario = input("Ingrese su ID: ")
-    pin = getpass.getpass("Ingrese su PIN: ")
-    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
-        moneda = input("Ingrese la moneda (colones, dólares o bitcoin): ")
-        if moneda == 'colones':
-            tipo_cambio = 0.0016  # Conversión de colones a dólares
-        elif moneda == 'bitcoin':
-            tipo_cambio = 26755  # Conversión de bitcoin a dólares
-        else:
-            tipo_cambio = 1
-        try:
-            monto = float(input("Ingrese el monto a depositar: "))
-            monto_dolares = monto * tipo_cambio
-            usuarios_registrados[id_usuario]['saldo'] += monto_dolares
-            print("Depósito exitoso")
-            print("Saldo actual: $", usuarios_registrados[id_usuario]['saldo'])
-        except ValueError:
-            print("Monto inválido")
-    else:
-        print("ID o PIN incorrecto")
-
-# Función para retirar dinero
-
-
-def retirar_dinero():
-    print("Retirar dinero")
-    id_usuario = input("Ingrese su ID: ")
-    pin = getpass.getpass("Ingrese su PIN: ")
-    if id_usuario in usuarios_registrados and usuarios_registrados[id_usuario]['pin'] == pin:
-        saldo_actual = usuarios_registrados[id_usuario]['saldo']
-        print("Saldo actual: $", saldo_actual)
-        intentos = 0
 
 
 def configuracion_avanzada():
