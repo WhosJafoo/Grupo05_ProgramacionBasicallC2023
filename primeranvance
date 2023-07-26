@@ -120,3 +120,56 @@ while True:
         break
     else:
         print("Opción inválida. Por favor, ingrese un número del 1 al 4.")
+
+#Punto 4 dreamworldCasino
+montoTotal = #Aca se hace la suma para ver cual es el monto disponible que tiene el jugador sin importar la divisa
+print("Bienvenido") #Aqui hace falta colocar el nombre del usuario
+#Menú de opciones que tiene el cliente 
+opcionUsu = int(input("Indique la transacción que desea utilizar \n"
+             "1) Retirar Dinero \n"
+             "2) Depositar Dinero \n"
+             "3) Ver Saldo Actual \n"
+             "4) Juegos en Linea \n"
+             "5) Eliminar Usuario \n"
+             "6) Salir \n"))
+if opcionUsu ==1:#Menú de usario para retirar dinero
+    print("El monto actual de dinero que tiene disponible es de ")#Aqui se imprime el monto que tiene disponible el jugador (Saldo actual)
+    resMonto = float(input("Digite el monto que desea retirar \n")) #Acá se le pide al cliente el monto que desea retirar para restarselo al monto total
+    if resMonto > montoTotal: #Condicional para evaluar que se pueda realizar la resta
+        print("El monto que desea retirar es mayor al disponible, NO se puede realizar la transacción")
+    else:
+        print("El monto que retiro es de ") #Indica el monto que retiraron
+        montDisp = montoTotal - resMonto #Operacion para restar el dinero 
+        print("El monto que quedo disponible es de ¢ ",montoDispo,"colones") #Mensaje que le indica al jugador cual es el saldo actual
+
+elif opcionUsu == 2: #Menú de usuario para depositar dinero
+    diviDis = int(input("Bienvenido al menú para depositar dinero, solo es aceptado las siguientes divisas \n" #Aparece el menú para que el usuario indique que divisa desea utilizar
+           " 1) Colones \n"
+           " 2) dolares \n"
+           " 3) Bitcoin \n"))
+    if diviDis == 1: #Submenú para escoger hacer el deposito en colones
+        print("La divisa que gusta utilizar es colones") #Le indica al jugador que tipo de divisa esta utilizando
+        depoColo = float(input("Digite la cantidad de colones que desea depositar \n")) # Le pide al jugador que le indique la cantidad de colones que desea depositar
+        print("El monto que deposito es de ¢", depoColo, "colones") #Mensaje para confirmarle al cliente cuanto dinero en colones deposito
+    elif diviDis ==2: #Submenú para escoger hacer el deposito en dolares
+        print("La divisa que gusta utilizar  es el dolar")#Se le indica al cliente el tipo de divisa que utilizo
+        depoDola = float(input("Indique el monto que desea depositar \n"))#Se le solicita al cliente que indique el monto que desea depositar en Dolares
+        conver = depoDola * 550 # Se hace la conversion del monto que deposita por el tipo de cambio
+        print("El monto que deposito en dolares es de $ ",depoDola) #Se le confirma el monto que deposito el cliente en DOLARES 
+        print ("El monto que deposito en colones es de ¢ ",conver,"colones")#Indica al cliente cuanto es el dinero que deposito en colones (Preguntar al profe cual es el tipo de cambio)
+    elif diviDis ==3: #Submenú para escoger hacer el deposito en Bitcoin.
+        print("La divisa seleccionada es el Bitcoin")#Mensaje para afirmarle al jugador que la divisa seleccionada es el Bitcoin
+        depoBit = float(input("Digite el monto que desea depositar \n")) #Mensaje para que el jugador ingrese cuanto es la cantidad de Bitcoin que desea depositar.
+        converBit = depoBit * 26755 #Conversión del Bitcoin a Dolares.
+        converColo = converBit * 550 #Conversión de los dolares a colones (Preguntar al profe por el tipo de cambio)
+        print("El monto que de Bitcoin que deposito es de ",depoBit,#Mensaje que le confirma al cliente que cuanto es el monto que deposito en Bitcoin
+              "Este monto equivale a $ ",converBit," dolares"#Mensaje que le confirma al cliente que cuanto es el monto que deposito en dolares(hay que preguntarle al profe por el tipo de cambio)
+              "Este monto equivale a ¢ ",converColo,"colones") #Mensaje que le confirma al cliente que cuanto es el monto que deposito en colones
+
+    else:
+        print("No existe esa opción en el menú")
+elif opcionUsu == 3:
+    print("Su saldo actual es de ") #Aca va la opción que le demuestra al jugador su saldo actual.
+  
+                                                    
+
