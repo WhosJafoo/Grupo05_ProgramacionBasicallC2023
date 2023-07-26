@@ -1,15 +1,13 @@
-"""por alguna razon el sistema no lo reconoce yo lo hice en visual studio entonces si hacen algun update o algo lo 
-hacen por afuera y ya despues se arregla para poder usarlo aca tambien y en el paso 2 de dreamworld hay un error que
-lo manda aun ponga el pin bien pero mas tarde lo arreglo"""
-# import para autentificacion y para uso de la biblioteca random en los juegos
-
-
-import getpass
 import random
-import os
+import time
+import getpass
+
+usuarios_Registrados = []
+
+# MENU PRINCIPAL DEL CASINO
 
 
-def mostrar_menu():
+def mostrar_Menu():
     print("Bienvenido a DreamWorld Casino")
     print("Seleccione una opción:")
     print("1. Registro de usuario nuevo")
@@ -17,159 +15,256 @@ def mostrar_menu():
     print("3. Configuración Avanzada")
     print("4. Salir")
 
+# PASOS PARA REGISTRAR UN USUARIO Y SE PREGUNTA CUANTO DINERO QUIERE DEPOSITAR Y LA MONEDA
 
-def register_usuario():
+
+def register_Usuario():
     print("NUEVO USUARIO!!")
     attempts = 0
     while attempts < 3:
-        id_usuario = getpass.getpass("Ingrese un nombre de usuario o ID: ")
-        if len(id_usuario) < 5:
+        id_Usuario = getpass.getpass("Ingrese un nombre de usuario o ID: ")
+        if len(id_Usuario) < 5:
             print("El ID debe tener al menos cinco caracteres")
-        elif id_usuario in usuarios_registrados:
-
+        elif id_Usuario in usuarios_Registrados:
             print("El ID ingresado ya está registrado")
         else:
-            nombre = input("ingrese su nombre:\n")
-            pin = getpass.getpass("Ingrese su PIN (minimo de 6 digitos: )")
+            nombre = input("Ingrese su nombre: ")
+            pin = getpass.getpass("Ingrese su PIN (mínimo de 6 dígitos): ")
             if len(pin) < 6:
-                print("PIN invalido, minimo seis dígitos.")
+                print("PIN inválido, mínimo seis dígitos.")
             else:
-                pin_confirmation = getpass.getpass(
-                    "Ingrese de nuevo su PIN:\n ")
+                pin_confirmation = getpass.getpass("Ingrese de nuevo su PIN: ")
                 if pin != pin_confirmation:
                     print("Los PINS no coinciden!")
                 else:
-                    deposito_minimo = input("Presiona una tecla para depositar:\n ")
-            deposito_minimo = 1000  # Monto mínimo de depósito en dólares
+                    deposito_Minimo = 1000  # Monto mínimo de depósito en dólares
 
-            intentos_deposito = 3
-            while intentos_deposito > 0:
-                moneda = input("Ingrese la moneda de su depósito (dólares, colones o bitcoin): ")
-                monto_deposito = float(input("Ingrese el monto a depositar: "))
-                
-                if moneda == "dólares":
-                    if monto_deposito >= deposito_minimo:
-                        usuarios_registrados.append(id_usuario)
-                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
-                        intentos_deposito = 0
-                    else:
-                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
-                        intentos_deposito -= 1
-                        if intentos_deposito > 0:
-                            print(f"Intentos restantes: {intentos_deposito}")
-                elif moneda == "colones":
-                    tipo_cambio = 0.001  # Tipo de cambio dólar-colón
-                    monto_deposito_dolares = monto_deposito * tipo_cambio
-                    if monto_deposito_dolares >= deposito_minimo:
-                        usuarios_registrados.append(id_usuario)
-                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
-                        intentos_deposito = 0
-                    else:
-                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
-                        intentos_deposito -= 1
-                        if intentos_deposito > 0:
-                            print(f"Intentos restantes: {intentos_deposito}")
-                elif moneda == "bitcoin":
-                    tipo_cambio = 35000  # Tipo de cambio dólar-bitcoin
-                    monto_deposito_dolares = monto_deposito * tipo_cambio
-                    if monto_deposito_dolares >= deposito_minimo:
-                        usuarios_registrados.append(id_usuario)
-                        print("Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
-                        intentos_deposito = 0
-                    else:
-                        print(f"El depósito mínimo es de {deposito_minimo} dólares.")
-                        intentos_deposito -= 1
-                        if intentos_deposito > 0:
-                            print(f"Intentos restantes: {intentos_deposito}")
-                else:
-                    print("Moneda no válida. Intente nuevamente.")
-        print("Registro exitoso")
-        return
-        intentos += 1
+                    intentos_Deposito = 3
+                    while intentos_Deposito > 0:
+                        moneda = input(
+                            "Ingrese la moneda de su depósito (dólares, colones o bitcoin): ")
+                        monto_Deposito = float(
+                            input("Ingrese el monto a depositar: "))
+
+                        if moneda == "dólares":
+                            if monto_Deposito >= deposito_Minimo:
+                                usuarios_Registrados.append(id_Usuario)
+                                print(
+                                    "Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                                intentos_Deposito = 0
+                            else:
+                                print(
+                                    f"El depósito mínimo es de {deposito_Minimo} dólares.")
+                                intentos_Deposito -= 1
+                                if intentos_Deposito > 0:
+                                    print(
+                                        f"Intentos restantes: {intentos_Deposito}")
+                        elif moneda == "colones":
+                            tipo_Cambio = 0.001  # Tipo de cambio dólar-colón
+                            monto_Deposito_Dolares = monto_Deposito * tipo_cambio
+                            if monto_Deposito_Dolares >= deposito_Minimo:
+                                usuarios_Registrados.append(id_Usuario)
+                                print(
+                                    "Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                                intentos_Deposito = 0
+                            else:
+                                print(
+                                    f"El depósito mínimo es de {deposito_Minimo} dólares.")
+                                intentos_Deposito -= 1
+                                if intentos_Deposito > 0:
+                                    print(
+                                        f"Intentos restantes: {intentos_Deposito}")
+                        elif moneda == "bitcoin":
+                            tipo_Cambio = 35000  # Tipo de cambio dólar-bitcoin
+                            monto_Deposito_Dolares = monto_Deposito * tipo_Cambio
+                            if monto_Deposito_Dolares >= deposito_Minimo:
+                                usuarios_Registrados.append(id_Usuario)
+                                print(
+                                    "Registro exitoso. ¡Bienvenido al DreamWorld Casino!")
+                                intentos_Deposito = 0
+                            else:
+                                print(
+                                    f"El depósito mínimo es de {deposito_Minimo} dólares.")
+                                intentos_Deposito -= 1
+                                if intentos_Deposito > 0:
+                                    print(
+                                        f"Intentos restantes: {intentos_Deposito}")
+                        else:
+                            print("Moneda no válida. Intente nuevamente.")
+                    break
+        attempts += 1
     print("Se excedió el máximo de intentos para ingresar un ID válido, volviendo al menú principal")
 
+# INSTRUCCIONES DEL TRAGAMONEDAS
 
-def dreamworld_casino():
+
+def mostrar_instrucciones():
+    print("Instrucciones del juego:")
+    print("1. Debes apostar al menos $100 para jugar.")
+    print("2. Presiona la tecla J para jalar la palanca e iniciar el juego.")
+    print("3. Cada ronda se mostrarán tres símbolos en pantalla.")
+    print("4. Si aparecen tres @ en una ronda, recuperarás tu apuesta.")
+    print("5. Si aparecen tres # en una ronda, ganarás el doble de tu apuesta.")
+    print("6. Si aparecen tres 7 en una ronda, ganarás el acumulado.")
+    print("7. El juego continuará hasta que decidas dejar de jugar.")
+
+# JUEGO TRAGAMONEDAS
+
+
+def jugar_tragamonedas(saldo):
+    if saldo < 100:
+        print("Debes apostar al menos $100 para jugar.")
+        return saldo
+
+    print("¡Bienvenido(a) a la tragamonedas!")
+    print("Tu saldo actual es de $", saldo)
+    while True:
+        input_j = input("Presiona la tecla J para jalar la palanca: ")
+        if input_j == 'J' or input_j == 'j':
+            simbolos = ['@', '#', '+', '7']
+            ronda = []
+            for _ in range(3):
+                simbolo = random.choice(simbolos)
+                ronda.append(simbolo)
+                print(simbolo, end=' ')
+                time.sleep(1.5)
+            print()
+
+            if ronda.count('@') == 3:
+                saldo += 100
+                print("¡Felicidades! Recuperaste tu apuesta.")
+            elif ronda.count('#') == 3:
+                saldo *= 2
+                print("¡Felicidades! Ganaste el doble de tu apuesta.")
+            elif ronda.count('7') == 3:
+                print("¡Felicidades! Ganaste el acumulado.")
+                saldo += 1000
+            else:
+                saldo -= 100
+                print("No tuviste suerte. Perdiste tu apuesta.")
+
+            print("Tu saldo actual es de $", saldo)
+
+            if saldo <= 0:
+                print("Lo siento, te has quedado sin saldo.")
+                break
+
+            respuesta = input("¿Deseas seguir jugando? (S/N): ")
+            if respuesta != 'S' and respuesta != 's':
+                break
+        else:
+            print("Debes presionar la tecla J para jalar la palanca.")
+
+# SUBMENU DE JUEGOS
+
+
+def dreamworld_Casino():
     print("DreamWorld Casino")
+    print("A. Tragamonedas ")
+    print("B. BlackJack ")
+    print("C. Volver al menu principal")
+
+# CONFIGURACION AVANZADA
+def configuracion_Avanzada():
+    print("configuracion avanzada")
+    global saldo_total  # variable global para modificarla
+
+    monto_total = 0  # Inicializamos el monto total
+    for moneda, monto in saldo_total.items():
+        monto_total += monto
+
+    nombre_usuario = input("Ingrese su nombre de usuario: ")
+    print("Bienvenido,", nombre_usuario)
+
+    opcionUsu = int(input("Indique la transacción que desea utilizar:\n"
+                          "1) Retirar Dinero\n"
+                          "2) Depositar Dinero\n"
+                          "3) Ver Saldo Actual\n"
+                          "4) Juegos en Linea\n"
+                          "5) Eliminar Usuario\n"
+                          "6) Salir\n"))
+
+    if opcionUsu == 1:
+        print("El monto actual de dinero que tiene disponible es de ¢",
+              monto_total, "colones")
+        resMonto = float(input("Digite el monto que desea retirar:\n"))
+        if resMonto > monto_total:
+            print(
+                "El monto que desea retirar es mayor al disponible. NO se puede realizar la transacción")
+        else:
+            print("El monto que retiró es de ¢", resMonto, "colones")
+            monto_total -= resMonto
+            print("El monto que quedó disponible es de ¢", monto_total, "colones")
+
+    elif opcionUsu == 2:
+        diviDis = int(input("Bienvenido al menú para depositar dinero. Solo se aceptan las siguientes divisas:\n"
+                            "1) Colones\n"
+                            "2) Dólares\n"
+                            "3) Bitcoin\n"))
+        if diviDis == 1:
+            print("La divisa que gusta utilizar es colones")
+            depoColo = float(
+                input("Digite la cantidad de colones que desea depositar:\n"))
+            print("El monto que depositó es de ¢", depoColo, "colones")
+            monto_total += depoColo
+        elif diviDis == 2:
+            print("La divisa que gusta utilizar es el dólar")
+            depoDola = float(input("Indique el monto que desea depositar:\n"))
+            conver = depoDola * 550
+            print("El monto que depositó en dólares es de $", depoDola)
+            print("El monto que depositó en colones es de ¢", conver, "colones")
+            monto_total += conver
+        elif diviDis == 3:
+            print("La divisa seleccionada es el Bitcoin")
+            depoBit = float(input("Digite el monto que desea depositar:\n"))
+            converBit = depoBit * 26755
+            converColo = converBit * 550
+            print("El monto que depositó de Bitcoin es de", depoBit)
+            print("Este monto equivale a $", converBit, "dólares")
+            print("Este monto equivale a ¢", converColo, "colones")
+            monto_total += converColo
+        else:
+            print("No existe esa opción en el menú")
+
+    elif opcionUsu == 3:
+        print("Su saldo actual es de ¢", monto_total, "colones")
 
 
-def configuracion_avanzada():
-    print("Configuración Avanzada")
+def menu_Principal():
+    usuarios_registrados = []  # Lista para almacenar los usuarios registrados
+    saldo = 1000  # Saldo inicial del jugador
+
+    while True:
+        mostrar_Menu()
+        option = input("Ingrese su opción: ")
+
+        if option == "1":
+            register_Usuario()
+        elif option == "2":
+            dreamworld_Casino()
+            while True:  # aquí está el submenu para los juegos
+                dreamworld_Casino()
+                subopcion = input("Que desea jugar? ")
+
+                if subopcion == "A":
+                    print("Bienvenido al Tragamonedas")
+                    mostrar_instrucciones()
+                    saldo = jugar_tragamonedas(saldo)
+                elif subopcion == "B":
+                    print("Bienvenido a BlackJack")
+                elif subopcion == "C":
+                    print("Volviendo al Menu")
+                    break
+                else:
+                    print("Opcion invalida")
+
+        elif option == "3":
+            configuracion_Avanzada()
+        elif option == "4":
+            print("¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida. Por favor, ingrese un número del 1 al 4.")
 
 
-def usuarios_registrados():
-    print("Usuarios registrados")
-
-
-# Lista para almacenar los usuarios registrados
-usuarios_registrados = []
-
-# Ciclo principal del programa
-while True:
-    mostrar_menu()
-    option = input("Ingrese su opción: ")
-
-    if option == "1":
-        register_usuario()
-    elif option == "2":
-        dreamworld_casino()
-    elif option == "3":
-        configuracion_avanzada()
-    elif option == "4":
-        print("¡Hasta luego!")
-        break
-    else:
-        print("Opción inválida. Por favor, ingrese un número del 1 al 4.")
-
-#Punto 4 dreamworldCasino
-montoTotal = #Aca se hace la suma para ver cual es el monto disponible que tiene el jugador sin importar la divisa
-print("Bienvenido") #Aqui hace falta colocar el nombre del usuario
-#Menú de opciones que tiene el cliente 
-opcionUsu = int(input("Indique la transacción que desea utilizar \n"
-             "1) Retirar Dinero \n"
-             "2) Depositar Dinero \n"
-             "3) Ver Saldo Actual \n"
-             "4) Juegos en Linea \n"
-             "5) Eliminar Usuario \n"
-             "6) Salir \n"))
-if opcionUsu ==1:#Menú de usario para retirar dinero
-    print("El monto actual de dinero que tiene disponible es de ")#Aqui se imprime el monto que tiene disponible el jugador (Saldo actual)
-    resMonto = float(input("Digite el monto que desea retirar \n")) #Acá se le pide al cliente el monto que desea retirar para restarselo al monto total
-    if resMonto > montoTotal: #Condicional para evaluar que se pueda realizar la resta
-        print("El monto que desea retirar es mayor al disponible, NO se puede realizar la transacción")
-    else:
-        print("El monto que retiro es de ") #Indica el monto que retiraron
-        montDisp = montoTotal - resMonto #Operacion para restar el dinero 
-        print("El monto que quedo disponible es de ¢ ",montoDispo,"colones") #Mensaje que le indica al jugador cual es el saldo actual
-
-elif opcionUsu == 2: #Menú de usuario para depositar dinero
-    diviDis = int(input("Bienvenido al menú para depositar dinero, solo es aceptado las siguientes divisas \n" #Aparece el menú para que el usuario indique que divisa desea utilizar
-           " 1) Colones \n"
-           " 2) dolares \n"
-           " 3) Bitcoin \n"))
-    if diviDis == 1: #Submenú para escoger hacer el deposito en colones
-        print("La divisa que gusta utilizar es colones") #Le indica al jugador que tipo de divisa esta utilizando
-        depoColo = float(input("Digite la cantidad de colones que desea depositar \n")) # Le pide al jugador que le indique la cantidad de colones que desea depositar
-        print("El monto que deposito es de ¢", depoColo, "colones") #Mensaje para confirmarle al cliente cuanto dinero en colones deposito
-    elif diviDis ==2: #Submenú para escoger hacer el deposito en dolares
-        print("La divisa que gusta utilizar  es el dolar")#Se le indica al cliente el tipo de divisa que utilizo
-        depoDola = float(input("Indique el monto que desea depositar \n"))#Se le solicita al cliente que indique el monto que desea depositar en Dolares
-        conver = depoDola * 550 # Se hace la conversion del monto que deposita por el tipo de cambio
-        print("El monto que deposito en dolares es de $ ",depoDola) #Se le confirma el monto que deposito el cliente en DOLARES 
-        print ("El monto que deposito en colones es de ¢ ",conver,"colones")#Indica al cliente cuanto es el dinero que deposito en colones (Preguntar al profe cual es el tipo de cambio)
-    elif diviDis ==3: #Submenú para escoger hacer el deposito en Bitcoin.
-        print("La divisa seleccionada es el Bitcoin")#Mensaje para afirmarle al jugador que la divisa seleccionada es el Bitcoin
-        depoBit = float(input("Digite el monto que desea depositar \n")) #Mensaje para que el jugador ingrese cuanto es la cantidad de Bitcoin que desea depositar.
-        converBit = depoBit * 26755 #Conversión del Bitcoin a Dolares.
-        converColo = converBit * 550 #Conversión de los dolares a colones (Preguntar al profe por el tipo de cambio)
-        print("El monto que de Bitcoin que deposito es de ",depoBit,#Mensaje que le confirma al cliente que cuanto es el monto que deposito en Bitcoin
-              "Este monto equivale a $ ",converBit," dolares"#Mensaje que le confirma al cliente que cuanto es el monto que deposito en dolares(hay que preguntarle al profe por el tipo de cambio)
-              "Este monto equivale a ¢ ",converColo,"colones") #Mensaje que le confirma al cliente que cuanto es el monto que deposito en colones
-
-    else:
-        print("No existe esa opción en el menú")
-elif opcionUsu == 3:
-    print("Su saldo actual es de ") #Aca va la opción que le demuestra al jugador su saldo actual.
-  
-                                                    
-
+menu_Principal()
