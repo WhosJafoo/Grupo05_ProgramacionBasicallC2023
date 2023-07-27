@@ -268,3 +268,120 @@ def menu_Principal():
 
 
 menu_Principal()
+
+#Dreamwordl casino 
+def cargar_usuarios():
+    # Cargar la información de usuarios desde un archivo de texto y almacenarla en arreglos
+    # Aquí deberías implementar la lectura del archivo de texto y cargar los usuarios en algún arreglo.
+
+def verificar_usuarios():
+    usuarios = cargar_usuarios()
+    if len(usuarios) == 0:
+        print("No hay usuarios registrados.")
+        return False
+    return True
+
+import getpass
+
+def auntenticar_usuario():
+    intentos_id = 0
+    usuarios = cargar_usuarios()
+
+    while intentos_id < 3:
+        id_usuario = input("Ingrese su ID:")
+
+        # Verificar si el ID es válido y está registrado
+        if id_usuario in usuarios:
+            # Solicitar el pin de forma segura
+            pin_usuario = getpass.getpass("Ingrese su PIN:")
+            # Verificar si el PIN es correcto
+            if verificar_pin(id_usuario, pin_usuario):
+                return id_usuario  # Autenticación exitosa
+
+        intentos_id += 1
+        print("Se excedió el máximo de intentos para ingresar su ID.")
+    
+    return None
+
+# Submenu y mensaje de bienvenida 
+def mostrar_submenu(nombre_usuario):
+    print(f"Bienvenido/a, {nombre_usuario}!")
+    print("Seleccione una opción:")
+    print("1. Retirar Dinero")
+    print("2. Depositar Dinero")
+    print("3. Ver saldo actual")
+    print("4. Juegos en línea")
+    print("5. Eliminar Usuario")
+    print("6. Salir")
+ #Retirar Dinero
+        def retirar_dinero(id_usuario):
+            saldo_actual=obtener_saldo(id_usuario)
+            print("Saldo actual:",saldo_actual)
+
+            intento_retiro=0
+
+            while intentos_retiro < 3:
+                monto_retiro=float(input("Ingrese el monto que desea retirar:"))
+
+            if monto_retiro > saldo_actual:
+                print("Monto solicitado mayor al saldo actual.Transaccion no realizada.")
+                return
+            intentos_retiro += 1
+
+            print("Se excidió el maximo de intentos para ingresar el monto válido.")
+            actualizar_saldo_archivo(id_usuario,saldo actual)#Actualizar saldo del archivo
+            return
+        def depositar_dinero(id_usuario):
+            divisa_seleccionda=seleccionar_divisa()
+            monto_deposito=float(input("Ingrese el monto que desea depositar:"))
+
+         if monto_deposito<=0:
+             print ("Monto invaido . Transaccion no realizada.")
+             return
+
+            monto_dolares=convertir_a_dolares(divisa_seleccionada,monto_deposito)
+            saldo_actual=obtener_saldo(id_usuario)
+            nuevo_saldo=saldo_actual + monto_dolares
+            actualizar_saldo_archivo(id_usuario,nuevo_saldo)#Actualizar saldo en archivo
+
+            print("Transaccion realizada de forma correcta.")
+            print("Saldo actual:", nuevo_saldo)
+            return
+
+        def seleccionar_divisa():
+            print("Divisas soportadas:")
+            print("1. Colones")
+            print("2. Dolares")
+            print("3. Bitcoin")
+
+            opcion=int(input("En que moneda desea depositar el dinero?"))
+            if opcion ==1:
+                return "colones"
+            elif opcion ==2:
+                return "bitcoin"
+            else:
+                print("Opcion invalida. Seleccionando dolares por defecto."
+                      return "dolares"
+
+                #Ver saldo actual
+            def ver_saldo_actual(id_usuario):
+                saldo_actual=obtener_saldo(id_usuario)
+                print("Saldo actual.",saldo_actual)
+
+
+                #Juegos en linea
+            def juegos_en_linea():
+                print("Seleccione un juego:")
+                print("1. Blackjack")
+                print("2. Tragamonedas")
+                print("3. Salir")
+                opcion=int(input())
+
+                if opcion==1:
+                    jugar_blackjack()
+                    elif opcion==2:
+                        jugar_tragamonedas()
+                        elif opcion==3:()
+                        return
+                    else:
+                        print("Opcion Invalida.")
