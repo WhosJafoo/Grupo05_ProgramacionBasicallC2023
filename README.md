@@ -1,5 +1,5 @@
 # Grupo05_ProgramacionBasicallC2023
-Proyecto programación segundo cuatrimestre
+#Proyecto programación segundo cuatrimestre
 
 import random
 import time
